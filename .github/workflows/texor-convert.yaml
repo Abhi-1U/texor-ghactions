@@ -10,8 +10,8 @@ name: texor-convert
 jobs:
 	convert:
 		runs-on: ubuntu-latest
-    env:
-      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+   	env:
+    	GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:
     	- name: convert the article
     		uses: actions/checkout@v3
