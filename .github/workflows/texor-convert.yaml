@@ -1,9 +1,9 @@
 # Test workflow script
 on:
-  push:
-    branches: [main, master]
-  pull_request:
-  	branches: [main, master]
+	push:
+		branches: [main, master]
+	pull_request:
+		branches: [main, master]
 inputs:
 	working-directory:
     	description: 'Working Directory file path'
