@@ -20,7 +20,7 @@ jobs:
           remotes::install_github("Abhi-1U/rebib")
           remotes::install_github("Abhi-1U/texor@sample-paper")
           texor::latex_to_web(".")
-        shell: Rscript
+        shell: Rscript {0}
         working-directory: '.'
       - name: zip the folder
         run: |
