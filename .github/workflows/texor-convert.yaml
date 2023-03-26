@@ -1,4 +1,4 @@
-# Te
+# Test workflow script
 on:
   push:
     branches: [main, master]
@@ -8,7 +8,7 @@ on:
 name: texor-convert
 
 jobs:
-	texor-convert:
+	convert:
 		runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
