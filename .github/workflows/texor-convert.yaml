@@ -1,11 +1,11 @@
 # Test workflow script
 on:
-	push:
-		branches: [main, master]
-	pull_request:
-		branches: [main, master]
+    push:
+        branches: [main, master]
+    pull_request:
+	    branches: [main, master]
 inputs:
-	working-directory:
+    working-directory:
     	description: 'Working Directory file path'
 		default: '.'
 name: texor-convert
@@ -16,7 +16,7 @@ jobs:
 		env:
     	    GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
 		steps:
-    		- name: convert the article
+		    - name: convert the article
 				uses: r-lib/actions/setup-r@v2
 				run: |
                     ## --------------------------------------------------------------------
