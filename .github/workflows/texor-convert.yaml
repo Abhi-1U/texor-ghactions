@@ -11,27 +11,23 @@ jobs:
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - uses: actions/checkout@v2
-      
-      - name: Install cURL Headers
-        uses: awalsh128/cache-apt-pkgs-action@latest
-        with:
-          packages: libcurl4-openssl-dev
-          version: 7.58.0     
+      - uses: actions/checkout@v3
       - name: setup
         uses: r-lib/actions/setup-r@v2
+      - name: Install cURL Headers 
+        uses: r-lib/actions/setup-r-dependencies@v2
       - name: convert
         run: |
           ## --------------------------------------------------------------------
-          install.packages(c("rmarkdown", "pdftools","tinytex","xfun","logger","stringr","yaml","remotes"))
-          remotes::install_github("Abhi-1U/rebib")
-          remotes::install_github("Abhi-1U/texor@sample-paper")
+          install.packages(c("rmarkdown", "pdftools","tinytex","xfun","logger","stringr","yaml","pak"))
+          pak ::pkg_install("Abhi-1U/rebib")
+          pak::pkg_install("Abhi-1U/texor@sample-paper")
           texor::latex_to_web(".")
         shell: Rscript {0}
         working-directory: '.'
       - name: zip the folder
         run: |
-          ##-
+          ##----------------
           zip -r web.zip web
         shell: bash
         working-directory: '.'
