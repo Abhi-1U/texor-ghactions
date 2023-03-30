@@ -22,12 +22,16 @@ jobs:
         run: |
           sudo apt-get install -y libcurl4-openssl-dev
         shell: bash 
+      - name: lib poppler
+        run: |
+          sudo apt-get install -y libpoppler-cpp-dev
+        shell: bash
       - name: convert
         run: |
           ## --------------------------------------------------------------------
-          install.packages(c("rmarkdown", "pdftools","tinytex","xfun","logger","stringr","yaml","remotes"))
-          remotes::install_github("Abhi-1U/rebib")
-          remotes::install_github("Abhi-1U/texor@sample-paper")
+          install.packages(c("rmarkdown", "pdftools","tinytex","xfun","logger","stringr","yaml","pak"))
+          pak::pkg_install("Abhi-1U/rebib")
+          pak::pkg_install("Abhi-1U/texor@sample-paper")
           texor::latex_to_web(".")
         shell: Rscript {0}
         working-directory: '.'
