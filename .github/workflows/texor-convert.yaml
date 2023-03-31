@@ -93,7 +93,7 @@ jobs:
           print("file access check ?")
           article_dir <- xfun::normalize_path(dir)
           wrapper <- "RJwrapper.md"
-          file_path <- paste(article_dir, "wrapper", sep = "/")
+          file_path <- paste(article_dir, wrapper, sep = "/")
           file.access(wrapper)
           file.access(file_path)
           texor::texor_log(paste0("Stage-09 | ","Creating R-markdown File to /web"), "info", 2)
