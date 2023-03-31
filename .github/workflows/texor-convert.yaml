@@ -57,7 +57,7 @@ jobs:
           rebib::aggregate_bibliography(dir)
           texor::log_setup(dir, log_file, "texor", 2)
           texor::texor_log(paste0("Stage-03 | ","converting Images to png"), "info", 2)
-          data <- texor::handle_figures(dir, file_name)
+          data <- texor:::handle_figures(dir, file_name)
           texor::texor_log(paste0("Stage-03 | ","converted pdf files to png"), "info", 2)
           texor::texor_log(paste0("Stage-04 | ","Patching Code Env"), "info", 2)
           texor::patch_code_env(dir)
