@@ -86,6 +86,7 @@ jobs:
         working-directory: '.'
       - name: this fails
         run: |
+          dir <- "."
           texor::texor_log(paste0("Stage-09 | ","Creating R-markdown File to /web"), "info", 2)
           texor::generate_rmd(dir)
           texor_log(paste0("Stage-09 | ","Created R-markdown File to /web"), "info", 2)
