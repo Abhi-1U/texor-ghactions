@@ -76,6 +76,16 @@ jobs:
           texor::texor_log(paste0("Stage-08 | ","Copying Dependencies to /web"), "info", 2)
           texor::copy_other_files(dir)
           texor::texor_log(paste0("Stage-08 | ","Copied Dependencies to /web"), "info", 2)
+        shell: Rscript {0}
+        working-directory: '.'
+      - name: check directory
+        run: |
+          ls -la
+          cat RJwrapper.md
+        shell: bash
+        working-directory: '.'
+      - name: this fails
+        run: |
           texor::texor_log(paste0("Stage-09 | ","Creating R-markdown File to /web"), "info", 2)
           texor::generate_rmd(dir)
           texor_log(paste0("Stage-09 | ","Created R-markdown File to /web"), "info", 2)
