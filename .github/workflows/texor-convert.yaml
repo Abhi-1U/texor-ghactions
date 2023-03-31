@@ -76,7 +76,14 @@ jobs:
           texor::texor_log(paste0("Stage-08 | ","Copying Dependencies to /web"), "info", 2)
           texor::copy_other_files(dir)
           texor::texor_log(paste0("Stage-08 | ","Copied Dependencies to /web"), "info", 2)
+          texor::texor_log(paste0("Stage-09 | ","Creating R-markdown File to /web"), "info", 2)
+          texor::generate_rmd(dir)
+          texor_log(paste0("Stage-09 | ","Created R-markdown File to /web"), "info", 2)
+          texor::texor_log(paste0("Stage-10 | ","Knitting Rmd to html"), "info", 2)
+          texor::produce_html(dir)
+          texor::texor_log(paste0("Stage-10 | ","Knitted Rmd to html"), "info", 2)
         shell: Rscript {0}
+        working-directory: '.'
       - name: zip the folder
         run: |
           ##----------------
