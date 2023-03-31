@@ -89,7 +89,9 @@ jobs:
       - name: this fails
         run: |
           dir <- "."
+          library(texor)
           print("file access check ?")
+          wrapper <- get_wrapper_type(dir)
           file.access(wrapper)
           texor::texor_log(paste0("Stage-09 | ","Creating R-markdown File to /web"), "info", 2)
           texor::generate_rmd(dir)
