@@ -89,6 +89,8 @@ jobs:
       - name: this fails
         run: |
           dir <- "."
+          print("file access check ?")
+          file.access(wrapper)
           texor::texor_log(paste0("Stage-09 | ","Creating R-markdown File to /web"), "info", 2)
           texor::generate_rmd(dir)
           texor_log(paste0("Stage-09 | ","Created R-markdown File to /web"), "info", 2)
