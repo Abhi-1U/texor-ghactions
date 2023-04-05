@@ -39,7 +39,7 @@ jobs:
         working-directory: '.'
       - name: convert
         run: |
-          texor::latex_to_web(dir)
+          texor::latex_to_web('.')
         shell: Rscript {0}
         working-directory: '.'
       - name: zip the folder
