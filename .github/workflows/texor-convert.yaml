@@ -28,15 +28,18 @@ jobs:
         run: |
           sudo apt-get install -y libpoppler-cpp-dev
         shell: bash
-      - name: install texor
+      - name: Download DESCRIPTION
         run: |
-          ## --------------------------------------------------------------------
-          install.packages("rmarkdown",version='2.20')
-          install.packages(c("pdftools","tinytex","xfun","logger","stringr","yaml","pak","rjtools"))
-          pak::pkg_install("Abhi-1U/rebib")
-          pak::pkg_install("Abhi-1U/texor@sample-paper")
-        shell: Rscript {0}
+          curl -o DESCRIPTION https://raw.githubusercontent.com/Abhi-1U/texor/master/DESCRIPTION
+        shell: bash
         working-directory: '.'
+      - name: install texor
+        uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          cache-version: 2
+          extra-packages: |
+            any::rebib
+            any::texor@sample-paper
       - name: convert
         run: |
           texor::latex_to_web('.')
