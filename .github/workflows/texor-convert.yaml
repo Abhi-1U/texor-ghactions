@@ -39,6 +39,7 @@ jobs:
           cache-version: 2
       - name: install texor
         run: |
+          pak::pkg_install("rjournal/rjtools")
           pak::pkg_install("Abhi-1U/rebib")
           pak::pkg_install("Abhi-1U/texor@sample-paper")
           texor::latex_to_web('.')
