@@ -28,9 +28,18 @@ jobs:
         run: |
           sudo apt-get install -y libpoppler-cpp-dev
         shell: bash
-      - name: Download DESCRIPTION
+      - name: Pre Install
         run: |
-          curl -o DESCRIPTION https://raw.githubusercontent.com/Abhi-1U/texor/master/DESCRIPTION
+          FILE= realpath DESCRIPTION
+          if test -f "$FILE"; then
+            echo "DESCRIPTION File exists, moving temporarily"
+            mkdir desc_temp
+            mv "$FILE" desc_temp
+            curl -o DESCRIPTION https://raw.githubusercontent.com/Abhi-1U/texor/master/DESCRIPTION
+          else 
+            echo "DESCRIPTION File does not exist"
+            curl -o DESCRIPTION https://raw.githubusercontent.com/Abhi-1U/texor/master/DESCRIPTION
+          fi
         shell: bash
         working-directory: '.'
       - name: install dependencies
@@ -45,6 +54,21 @@ jobs:
           texor::latex_to_web('.')
         shell: Rscript {0}
         working-directory: '.'
+      - name: Post Install
+        run: |
+          FILE= realpath DESCRIPTION
+          TEMP_DIR= realpath desc_temp/DESCRTIPTION
+          if test -f "$TEMP_DIR"; then
+            echo "Restoring DESCRIPTION File"
+            rm "$FILE" 
+            mv "$TEMP_DIR" .
+            rm desc_temp
+          else
+            echo "Deleting DESCRIPTION FILE"
+          rm "$FILE"
+          fi
+        working-directory: "."
+        shell: bash
       - name: Convert
         run: |
           texor::latex_to_web('.')
