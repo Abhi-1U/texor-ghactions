@@ -33,14 +33,18 @@ jobs:
           curl -o DESCRIPTION https://raw.githubusercontent.com/Abhi-1U/texor/master/DESCRIPTION
         shell: bash
         working-directory: '.'
-      - name: install texor
+      - name: install dependencies
         uses: r-lib/actions/setup-r-dependencies@v2
         with:
           cache-version: 2
-          extra-packages: |
-            any::rebib
-            any::texor@sample-paper
-      - name: convert
+      - name: install texor
+        run: |
+          pak::pkg_install("Abhi-1U/rebib")
+          pak::pkg_install("Abhi-1U/texor@sample-paper")
+          texor::latex_to_web('.')
+        shell: Rscript {0}
+        working-directory: '.'
+      - name: Convert
         run: |
           texor::latex_to_web('.')
         shell: Rscript {0}
