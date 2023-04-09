@@ -30,11 +30,11 @@ jobs:
         shell: bash
       - name: Pre Install
         run: |
-          FILE= realpath DESCRIPTION
-          if test -f "$FILE"; then
+          FILE="DESCRIPTION"
+          if [ -f $FILE ]; then
             echo "DESCRIPTION File exists, moving temporarily"
             mkdir desc_temp
-            mv "$FILE" desc_temp
+            mv $FILE desc_temp
             curl -o DESCRIPTION https://raw.githubusercontent.com/Abhi-1U/texor/master/DESCRIPTION
           else 
             echo "DESCRIPTION File does not exist"
@@ -56,16 +56,16 @@ jobs:
         working-directory: '.'
       - name: Post Install
         run: |
-          FILE= realpath DESCRIPTION
-          TEMP_DIR= realpath desc_temp/DESCRTIPTION
-          if test -f "$TEMP_DIR"; then
+          FILE="DESCRIPTION"
+          OGDF="desc_temp/DESCRIPTION"
+          if [ -f $OGDF ]; then
             echo "Restoring DESCRIPTION File"
-            rm "$FILE" 
-            mv "$TEMP_DIR" .
-            rm desc_temp
+            rm $FILE
+            mv $OGDF ./DESCRIPTION
+            rm -rf desc_temp
           else
             echo "Deleting DESCRIPTION FILE"
-          rm "$FILE"
+            rm $FILE
           fi
         working-directory: "."
         shell: bash
