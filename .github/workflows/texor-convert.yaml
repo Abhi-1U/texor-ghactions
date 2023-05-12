@@ -48,9 +48,8 @@ jobs:
           cache-version: 2
       - name: install texor
         run: |
-          pak::pkg_install("rjournal/rjtools")
           pak::pkg_install("Abhi-1U/rebib")
-          pak::pkg_install("Abhi-1U/texor@sample-paper")
+          pak::pkg_install("Abhi-1U/texor")
         shell: Rscript {0}
         working-directory: '.'
       - name: Post Install
