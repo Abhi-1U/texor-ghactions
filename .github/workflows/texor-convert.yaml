@@ -19,7 +19,7 @@ jobs:
       - name: pandoc setup
         uses: r-lib/actions/setup-pandoc@v2
         with:
-          pandoc-version: '2.19.2'
+          pandoc-version: '3.1.2'
       - name: curl headers
         run: |
           sudo apt-get install -y libcurl4-openssl-dev
