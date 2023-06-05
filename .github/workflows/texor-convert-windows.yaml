@@ -4,14 +4,14 @@ on:
   pull_request:
     branches: ['main', 'master']
 
-name: texor-convert
+name: texor-convert-win
 jobs:
   convert:
     strategy:
       fail-fast: false
       matrix:
         pandoc_version: ['3.1.2', '2.18', '2.17', '2.16.2', '2.15', '2.14.2', '2.13']
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:
@@ -24,28 +24,6 @@ jobs:
         uses: r-lib/actions/setup-pandoc@v2
         with:
           pandoc-version: ${{ matrix.pandoc_version }}
-      - name: curl headers
-        run: |
-          sudo apt-get install -y libcurl4-openssl-dev
-        shell: bash 
-      - name: lib poppler
-        run: |
-          sudo apt-get install -y libpoppler-cpp-dev
-        shell: bash
-      - name: Pre Install
-        run: |
-          FILE="DESCRIPTION"
-          if [ -f $FILE ]; then
-            echo "DESCRIPTION File exists, moving temporarily"
-            mkdir desc_temp
-            mv $FILE desc_temp
-            curl -o DESCRIPTION https://raw.githubusercontent.com/Abhi-1U/texor/master/DESCRIPTION
-          else 
-            echo "DESCRIPTION File does not exist"
-            curl -o DESCRIPTION https://raw.githubusercontent.com/Abhi-1U/texor/master/DESCRIPTION
-          fi
-        shell: bash
-        working-directory: '.'
       - name: install dependencies
         uses: r-lib/actions/setup-r-dependencies@v2
         with:
@@ -55,21 +33,6 @@ jobs:
           pak::pkg_install("Abhi-1U/texor")
         shell: Rscript {0}
         working-directory: '.'
-      - name: Post Install
-        run: |
-          FILE="DESCRIPTION"
-          OGDF="desc_temp/DESCRIPTION"
-          if [ -f $OGDF ]; then
-            echo "Restoring DESCRIPTION File"
-            rm $FILE
-            mv $OGDF ./DESCRIPTION
-            rm -rf desc_temp
-          else
-            echo "Deleting DESCRIPTION FILE"
-            rm $FILE
-          fi
-        working-directory: "."
-        shell: bash
       - name: Convert
         run: |
           texor::latex_to_web('.')
