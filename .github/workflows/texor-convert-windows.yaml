@@ -24,10 +24,20 @@ jobs:
         uses: r-lib/actions/setup-pandoc@v2
         with:
           pandoc-version: ${{ matrix.pandoc_version }}
+      - name: Pre Install
+        run: |
+          curl -o DESCRIPTION https://raw.githubusercontent.com/Abhi-1U/texor/master/DESCRIPTION
+        shell: bash
+        working-directory: '.'
       - name: install dependencies
         uses: r-lib/actions/setup-r-dependencies@v2
         with:
           cache-version: 2
+      - name: Post Install
+        run: |
+          rm DESCRIPTION
+        working-directory: "."
+        shell: bash
       - name: install texor
         run: |
           pak::pkg_install("Abhi-1U/texor")
