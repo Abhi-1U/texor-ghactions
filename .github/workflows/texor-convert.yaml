@@ -78,7 +78,12 @@ jobs:
       - name: zip the folder
         run: |
           ##----------------
-          zip -r web.zip web
+          if [ -d "web" ]; then
+            zip -r web.zip web
+          else 
+            mkdir web
+            zip -r web.zip web
+          fi
         shell: bash
         working-directory: '.'
       - name: Upload folder
