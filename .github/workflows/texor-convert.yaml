@@ -78,6 +78,7 @@ jobs:
       - name: zip the folder
         run: |
           ##----------------
+          cat RJwrapper.md
           if [ -d "web" ]; then
             zip -r web.zip web
           else 
