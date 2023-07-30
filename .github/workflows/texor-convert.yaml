@@ -7,10 +7,6 @@ on:
 name: texor-convert
 jobs:
   convert:
-    strategy:
-      fail-fast: false
-      matrix:
-        pandoc_version: ['3.1.2', '2.18', '2.17', '2.16.2', '2.15', '2.14.2', '2.13']
     runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
@@ -23,7 +19,7 @@ jobs:
       - name: pandoc setup
         uses: r-lib/actions/setup-pandoc@v2
         with:
-          pandoc-version: ${{ matrix.pandoc_version }}
+          pandoc-version: '3.1.2'
       - name: curl headers
         run: |
           sudo apt-get install -y libcurl4-openssl-dev
@@ -72,7 +68,7 @@ jobs:
         shell: bash
       - name: Convert
         run: |
-          texor::latex_to_web('.')
+          texor::latex_to_web('.',temp_mode = T, web_dir = F)
         shell: Rscript {0}
         working-directory: '.'
       - name: Upload folder

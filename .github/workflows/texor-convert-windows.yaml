@@ -39,7 +39,7 @@ jobs:
         working-directory: '.'
       - name: Convert
         run: |
-          texor::latex_to_web('.')
+          texor::latex_to_web('.',temp_mode = T, web_dir = F)
         shell: Rscript {0}
         working-directory: '.'
       - name: Upload folder
