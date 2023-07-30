@@ -75,21 +75,9 @@ jobs:
           texor::latex_to_web('.')
         shell: Rscript {0}
         working-directory: '.'
-      - name: zip the folder
-        run: |
-          ##----------------
-          cat RJwrapper.md
-          if [ -d "web" ]; then
-            zip -r web.zip web
-          else 
-            mkdir web
-            zip -r web.zip web
-          fi
-        shell: bash
-        working-directory: '.'
       - name: Upload folder
         uses: actions/upload-artifact@v3
         with:
-          name: web
-          path: web.zip
+          name: RJwrapper.html
+          path: RJwrapper.html
           
